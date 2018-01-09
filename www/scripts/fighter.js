@@ -1,11 +1,10 @@
 class Fighter {
 
-    constructor(name) {
+    constructor(id, name, power) {
+        this.id = id;
         this.name = name;
-        this.power = 100;
+        this.power = power;
         this.score = 0;
-        this.sang = 100;
+        this.life = 100;
     }
-
-    
 }
