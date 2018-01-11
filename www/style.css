@@ -13,6 +13,7 @@ body {
   background-image: url('img/background.png');
 }
 
+
 ul {
   list-style: none;
 }
@@ -27,7 +28,7 @@ ul {
   height: 250px;
   background-image: url('img/ronda.jpg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 
 .text-center {
@@ -48,6 +49,13 @@ ul {
   display: flex;
   flex-direction: column;
 }
+.figureF  {
+  width : 80px;
+  height: 200px;
+  background-color: #a09a81;
+  border: 1px solid #3843e4;
+  border-radius: 5%;
+}
 
 .combat {
   display: none;
@@ -62,11 +70,46 @@ ul {
 
 .stat {
   justify-content: space-between;
-  background-color: #cde9b4;
+  background-color: #ece8a6;
+}
+.stat-player {
+  width: 40%;
+}
+
+#barre-life-f, #barre-life-a {
+  height: 25px;
+  background-color: rgb(255, 255, 255);
+  border: 0.5px solid #fffb00;
+  margin-bottom: 1px;
+}
+#barre-progress-f, #barre-progress-a {
+  height: 25px;
+  width: 100%;
+  background-color: red;
+  border: 0.5px solid #fffb00;
+  border-right: 0;
+  margin-bottom: 1px;
+}
+
+#barre-power-f, #barre-power-a {
+  height: 15px;
+  background-color: rgb(255, 255, 255);
+  border: 0.5px solid #fffb00;
+  margin-bottom: 1px;
+}
+#barre-progress-power-f, #barre-progress-power-a {
+  height: 15px;
+  width: 100%;
+  background-color: rgb(27, 17, 90);
+  border: 0.5px solid #fffb00;
+  border-right: 0;
+  margin-bottom: 1px;
 }
 
 .fighter {
   justify-content: space-around;
+  flex-grow: 2;
+  align-items: flex-end;
 }
 
 .actions {
@@ -74,3 +117,6 @@ ul {
   background-color: #e5d9a0; 
 }
  
+#score-f, #life-f, #score-a, #life-a {
+  width: 30px;
+}
