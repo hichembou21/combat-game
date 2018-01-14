@@ -1,15 +1,15 @@
 "use strict";
 
 let fighters = [
-    ["ryu", 500], 
-    ["ken", 500], 
-    ["ronda", 400],
+    ["ryu", 400], 
+    ["ken", 400], 
     ["andro", 400],
-    ["guile", 400]
+    ["dhalsim", 400],
+    ["guile", 400],
+    ["blanka", 400],    
 ]; 
 let adversers = [
-    ["ryu", 500], 
-    ["ken", 500], 
+    ["ken", 400], 
     ["chanli", 400],
     ["police", 400],
     ["bison", 400]
@@ -31,15 +31,16 @@ let buttonJumpAttackA = document.querySelector('#jump-a');
 
 // récupéré les Div principales
 let divStart = document.querySelector('.players-choice');
+let logo = document.querySelector('.header');
 let divCombat = document.querySelector('.combat');
 let choice = document.querySelectorAll('div input[type=radio]');
+let name = document.querySelector('div input[name=name]').value;
 // console.log(choice);
 
 // evenement Click sur button Start
 buttonStart.addEventListener('click', function (event) {
     event.preventDefault();
-    let id = 0;
-    let name = document.querySelector('.input-group input[type=text]').value; 
+    let id = 0; 
     choice.forEach(item => {
         if (item.checked) {
             id = parseInt(item.getAttribute('id'));
@@ -47,13 +48,17 @@ buttonStart.addEventListener('click', function (event) {
     });
 
     fighter = selectFighter(fighters[id][0], id);
-    id = getRandomInt(3);
-    adverser = selectFighter(fighters[id][0], id);
+    id = getRandomInt(adversers.length);
+    adverser = selectFighter(adversers[id][0], id);
     // savePlayers(fighter, adverser);
     
     divStart.style.display = 'none';
     divCombat.style.display = 'flex';
+    divCombat.style.backgroundImage = `url('img/photo${getRandomInt(3)}.gif')`;
+    
     buttonStart.style.display = 'none';
+    logo.style.height = "100px";    
+
     display();
 })
 
@@ -61,22 +66,17 @@ function display() {
     // let fighter = getPlayer();
     // let adverser = getAdverser();
     let divFight = document.querySelector('.fighter');
-    divFight.innerHTML = '';
-    let pictureF = document.createElement('img');
-    pictureF.setAttribute("src", `img/${fighter.name}.gif`)
-    pictureF.setAttribute("alt", "ryu picture");
-    pictureF.setAttribute("width", "150");  
-    pictureF.setAttribute("height", "300");  
-    divFight.appendChild(pictureF);
 
-    pictureF = document.createElement('img');
-    pictureF.setAttribute("src", `img/${adverser.name}.gif`)
-    pictureF.setAttribute("alt", "ryu picture");
-    pictureF.setAttribute("width", "150");  
-    pictureF.setAttribute("height", "300");
-    divFight.appendChild(pictureF);
+    let pictureF = document.querySelector('#img-f');
+    pictureF.style.backgroundImage = `url(img/${fighter.name}.gif)`;
+    // pictureF.style.animationName = '';
+    console.log(pictureF.style.animationName);
+    pictureF = document.querySelector('#img-a');
+    pictureF.style.backgroundImage = `url(img/${adverser.name}-a.gif)`;
 
-    let scoreF = document.querySelector("#score-f");
+    let divNameF = document.querySelector(".name-f");
+    let divNameA = document.querySelector(".name-a");    
+    let scoreF = document.querySelector("#score-f");    
     let lifeF = document.querySelector("#life-f");
     let scoreA = document.querySelector("#score-a");
     let lifeA = document.querySelector("#life-a");
@@ -90,6 +90,13 @@ function display() {
     lifeF.innerHTML = ''; 
     scoreA.innerHTML = '';
     lifeA.innerHTML = '';
+    if (!name==='') {
+        divNameF.textContent = name;
+    } else {
+        divNameF.textContent = fighter.name;
+    }
+    divNameA.textContent = adverser.name;
+    
     
     scoreF.textContent = fighter.score; 
     lifeF.textContent = fighter.life; 
@@ -105,28 +112,30 @@ buttonAttackF.addEventListener('click', function (event) {
     event.preventDefault();
     // let fighter = getPlayer();
     // let adverser = getAdverser();
+    animAttackF(1);
     fighter.simpleAttack(adverser);
     // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
+        display();
         alert("you win");
-        console.log("you win");
         gameOver();
     }
-    display();
+    setTimeout(display(), 3000);
 });
 
 buttonSuperAttackF.addEventListener('click', function (event) {
     event.preventDefault();
     // let fighter = getPlayer();
     // let adverser = getAdverser();
+    animAttackF(2);
     fighter.superAttack(adverser);
     // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
+        display();
         alert("you win");
-        console.log("you win");
         gameOver();
     }
-    display();
+    setTimeout(display(), 3000);
 });
 
 buttonGetPowerF.addEventListener('click', function (event) {
@@ -174,6 +183,21 @@ buttonSuperAttackA.addEventListener('click', function (event) {
 
 
 // les functions
+
+function animAttackF(i) {
+    let imgF = document.querySelector('#img-f');
+    console.log(imgF);
+    imgF.style.backgroundImage = `url(img/${fighter.name}-attack1.gif)`;
+    // imgF.style.backgroundSize = 'cover';
+    imgF.style.animationName = `attack${i}-${fighter.name}`; 
+    imgF.addEventListener('animationend', function () {
+        imgF.style.animationName = `none`;
+    });
+        
+    console.log(imgF.style.animationName);
+    // imgF.style.animationName = 'none';
+}
+
 function selectFighter(name, id) {
     return new Fighter(id, name, fighters[id][1]);
         

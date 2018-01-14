@@ -13,6 +13,12 @@ body {
   background-image: url('img/background.png');
 }
 
+.header {
+  background-color: black;
+  border: 0;
+  margin : 0;
+  padding: 0;
+}
 
 ul {
   list-style: none;
@@ -20,6 +26,7 @@ ul {
 
 .players {
   justify-content: space-around;
+  flex-wrap: wrap;
   margin: 20px 10px;
 }
 
@@ -52,8 +59,8 @@ ul {
 .figureF  {
   width : 80px;
   height: 200px;
-  background-color: #a09a81;
-  border: 1px solid #3843e4;
+  background-color: #b9b5a2;
+  border: 1px solid #0c1153;
   border-radius: 5%;
 }
 
@@ -76,40 +83,69 @@ ul {
   width: 40%;
 }
 
+.name {
+  justify-content: space-between;
+  font-family: 'Russo One', sans-serif;
+}
+
 #barre-life-f, #barre-life-a {
   height: 25px;
-  background-color: rgb(255, 255, 255);
-  border: 0.5px solid #fffb00;
-  margin-bottom: 1px;
+  background-color: rgb(243, 247, 4);
+  border: 0.5px solid #ffffff;
 }
+
+#barre-life-a {
+  justify-content: flex-end;
+}
+
 #barre-progress-f, #barre-progress-a {
   height: 25px;
   width: 100%;
   background-color: red;
-  border: 0.5px solid #fffb00;
+  border: 0.5px solid #ffffff;
   border-right: 0;
-  margin-bottom: 1px;
 }
 
 #barre-power-f, #barre-power-a {
   height: 15px;
-  background-color: rgb(255, 255, 255);
-  border: 0.5px solid #fffb00;
-  margin-bottom: 1px;
+  background-color: rgb(236, 253, 0);
+  border: 0.5px solid #ffffff;
 }
+
+#barre-power-a {
+  justify-content: flex-end;
+}
+
 #barre-progress-power-f, #barre-progress-power-a {
   height: 15px;
   width: 100%;
-  background-color: rgb(27, 17, 90);
-  border: 0.5px solid #fffb00;
+  background-color: rgb(65, 53, 143);
+  border: 0.5px solid #ffffff;
   border-right: 0;
-  margin-bottom: 1px;
 }
 
 .fighter {
   justify-content: space-around;
   flex-grow: 2;
-  align-items: flex-end;
+  align-items: flex-end; 
+}
+
+#img-f {
+  width : 150px;  
+  height : 300px;  
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-duration: 4s;
+  animation-iteration-count: initial;
+}
+
+#img-a {
+  width : 150px;  
+  height : 300px;  
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* animation-name: attack; */
+  animation-duration: 2s;  
 }
 
 .actions {
@@ -119,4 +155,26 @@ ul {
  
 #score-f, #life-f, #score-a, #life-a {
   width: 30px;
+}
+
+
+@keyframes attack1-ryu {
+  to {
+    background-image: url('img/ryu-attack1.gif');
+    /* background-size: cover; */
+    width: 700px;
+    background-position-x: 100px;
+  }
+}
+
+@keyframes attack2-ryu {
+  to {
+    background-image: url('img/ryu-attack2.gif');
+    background-size: cover;
+
+    background-position-y: -200px;
+    background-position-x: 50px;
+    width: 600px;
+    /* height: 600px; */
+  }
 }
