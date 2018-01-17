@@ -11,15 +11,15 @@ class Fighter {
     simpleAttack(adverser) {
         this.score+=5;
         this.power-=5;
-        adverser.power-=40;
-        adverser.life-=10;
+        adverser.power-=30;
+        adverser.life-=5;
     }
 
     superAttack (adverser) {
         this.score+=30;
-        this.power-=30;
+        this.power-=40;
         adverser.power-=80;
-        adverser.life-=20;
+        adverser.life-=10;
     }
 
     getPower() {

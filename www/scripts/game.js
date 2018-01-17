@@ -3,16 +3,14 @@
 let fighters = [
     ["ryu", 400], 
     ["ken", 400], 
-    ["andro", 400],
+    ["zangile", 400],
     ["dhalsim", 400],
     ["guile", 400],
     ["blanka", 400],    
 ]; 
 let adversers = [
     ["ken", 400], 
-    ["chanli", 400],
-    ["police", 400],
-    ["bison", 400]
+    
 ];
 
 let fighter = new Fighter();
@@ -28,6 +26,7 @@ let buttonSuperAttackF = document.querySelector('#super-attack-f');
 let buttonSuperAttackA = document.querySelector('#super-attack-a');
 let buttonJumpAttackF = document.querySelector('#jump-f');
 let buttonJumpAttackA = document.querySelector('#jump-a');
+let onAttack, onAttackA = false;
 
 // récupéré les Div principales
 let divStart = document.querySelector('.players-choice');
@@ -57,9 +56,10 @@ buttonStart.addEventListener('click', function (event) {
     divCombat.style.backgroundImage = `url('img/photo${getRandomInt(3)}.gif')`;
     
     buttonStart.style.display = 'none';
-    logo.style.height = "100px";    
+    logo.style.height = "1px";    
 
     display();
+    // attackA();
 })
 
 function display() {
@@ -113,14 +113,13 @@ buttonAttackF.addEventListener('click', function (event) {
     // let fighter = getPlayer();
     // let adverser = getAdverser();
     animAttackF(1);
-    fighter.simpleAttack(adverser);
     // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
         display();
         alert("you win");
         gameOver();
     }
-    setTimeout(display(), 3000);
+    // setTimeout(display(), 3000);
 });
 
 buttonSuperAttackF.addEventListener('click', function (event) {
@@ -128,14 +127,24 @@ buttonSuperAttackF.addEventListener('click', function (event) {
     // let fighter = getPlayer();
     // let adverser = getAdverser();
     animAttackF(2);
-    fighter.superAttack(adverser);
     // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
         display();
         alert("you win");
         gameOver();
     }
-    setTimeout(display(), 3000);
+    // setTimeout(display(), 3000);
+});
+
+buttonJumpAttackF.addEventListener('click', function () {
+
+    let imgF = document.querySelector('#img-f');
+    imgF.style.animationDuration = '1.2s';
+    imgF.style.animationName = `${fighter.name}-jump`;
+    imgF.addEventListener('animationend', function () {
+        imgF.style.animationName = 'none';
+    });   
+    display();
 });
 
 buttonGetPowerF.addEventListener('click', function (event) {
@@ -152,51 +161,100 @@ buttonGetPowerF.addEventListener('click', function (event) {
     display();
 });
 
-buttonAttackA.addEventListener('click', function (event) {
-    event.preventDefault();
+buttonAttackA.addEventListener('click', function name(params) {
     // let fighter = getPlayer();
     // let adverser = getAdverser();
-    adverser.simpleAttack(fighter);
+    animAttackA(1);
     // savePlayers(fighter, adverser);
     if (fighter.life <= 0) {
         alert("you lost");
         console.log("you win");
         gameOver();
     }
-    display();
 });
 
-buttonSuperAttackA.addEventListener('click', function (event) {
-    event.preventDefault();
-    // let fighter = getPlayer();
-    // let adverser = getAdverser();
-    adverser.superAttack(fighter);
+buttonSuperAttackA.addEventListener('click', function () {
+    
+    animAttackA(2);
     // savePlayers(fighter, adverser);
     if (fighter.life <= 0) {
         alert("you lost");
         console.log("you win");
         gameOver();
     }
-    display();
 });
 
-
+buttonJumpAttackA.addEventListener('click', function () {
+    
+        let imgA = document.querySelector('#img-a');
+        imgA.style.animationDuration = '1s';
+        imgA.style.animationName = `${adverser.name}-jump-a`;
+        imgA.addEventListener('animationend', function () {
+            imgA.style.animationName = 'none';
+        });   
+        display();
+    });
 
 // les functions
 
 function animAttackF(i) {
     let imgF = document.querySelector('#img-f');
+    let imgA = document.querySelector('#img-a');
     console.log(imgF);
-    imgF.style.backgroundImage = `url(img/${fighter.name}-attack1.gif)`;
     // imgF.style.backgroundSize = 'cover';
+    onAttack = true;
+    imgF.style.animationDuration = '3.5s';
+    imgA.style.animationDuration = '1.5s';    
+    imgA.style.animationDelay = `2.2s`;
     imgF.style.animationName = `attack${i}-${fighter.name}`; 
+    imgA.style.animationName = `${adverser.name}-tombe`;
     imgF.addEventListener('animationend', function () {
-        imgF.style.animationName = `none`;
+            if (onAttack) {
+                if (i===1) {
+                    fighter.simpleAttack(adverser);
+                } else {
+                    fighter.superAttack(adverser);
+                }
+                display();
+                onAttack = false;
+            }
+            imgF.style.animationName = 'none';
+        });
+    imgA.addEventListener('animationend', function () {
+        imgA.style.animationName = 'none';
     });
         
     console.log(imgF.style.animationName);
     // imgF.style.animationName = 'none';
 }
+
+function animAttackA(i) {
+    let imgF = document.querySelector('#img-f');
+    let imgA = document.querySelector('#img-a');
+    console.log(imgF);
+    // imgF.style.backgroundSize = 'cover';
+    onAttackA = true;
+    imgA.style.animationName = `attack${i}-${adverser.name}-a`; 
+    imgA.style.animationDuration = '2.8s';
+    imgF.style.animationDelay = `2s`;
+    imgF.style.animationName = `${fighter.name}-tombe`;
+    imgA.addEventListener('animationend', function () {
+            if (onAttackA) {
+                if (i === 1) {
+                    adverser.simpleAttack(fighter);
+                } else {
+                    adverser.superAttack(fighter);
+                }
+                display();
+                onAttackA = false;
+            }
+            imgA.style.animationName = 'none';
+        });
+    imgF.addEventListener('animationend', function () {
+        imgF.style.animationName = 'none';
+    });
+}
+
 
 function selectFighter(name, id) {
     return new Fighter(id, name, fighters[id][1]);

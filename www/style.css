@@ -79,6 +79,19 @@ ul {
   justify-content: space-between;
   background-color: #ece8a6;
 }
+
+.vs {
+  align-self: center;
+  background-image: url('img/vs.png');
+  background-color: yellow;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+}
+
 .stat-player {
   width: 40%;
 }
@@ -133,19 +146,21 @@ ul {
 #img-f {
   width : 150px;  
   height : 300px;  
+  position: absolute;
+  left: 10%;
   background-repeat: no-repeat;
   background-size: contain;
-  animation-duration: 4s;
-  animation-iteration-count: initial;
+  /* animation-duration: 2s; */
 }
 
 #img-a {
   width : 150px;  
-  height : 300px;  
+  height : 300px; 
+  position: absolute; 
+  right : 10%; 
   background-repeat: no-repeat;
   background-size: contain;
-  /* animation-name: attack; */
-  animation-duration: 2s;  
+  /* animation-name: attack; */  
 }
 
 .actions {
@@ -159,22 +174,228 @@ ul {
 
 
 @keyframes attack1-ryu {
-  to {
-    background-image: url('img/ryu-attack1.gif');
-    /* background-size: cover; */
-    width: 700px;
-    background-position-x: 100px;
+
+  50% {
+    left:35%;
+    /* background-image: url('img/ryu-attack1.gif'); */
   }
+  100% {
+    width: 1000px;
+    height: 310px;
+    left:40%;
+    /* background-position-x: -100px; */
+    background-image: url('img/ryu-attack1.gif');
+    box-sizing: content-box;
+    z-index: 2;
+  }
+
 }
 
 @keyframes attack2-ryu {
-  to {
-    background-image: url('img/ryu-attack2.gif');
-    background-size: cover;
-
-    background-position-y: -200px;
-    background-position-x: 50px;
-    width: 600px;
-    /* height: 600px; */
+  50% {
+    left:35%;
+    /* background-image: url('img/ryu-attack1.gif'); */
   }
+  100% {
+    width: 600px;
+    height: 310px;
+    left:45%;
+    /* background-position-x: -100px; */
+    background-image: url('img/ryu-attack33.gif');
+    box-sizing: content-box;
+    z-index: 2;
+  }
+}
+
+@keyframes ryu-tombe {
+  to {
+    background-image: url('img/ryu-tombe.gif');
+    /* background-size: cover; */
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
+}
+
+@keyframes attack1-ken {
+  to {
+    /* background-position-y: -50px;
+    background-position-x: 50px; */
+    width: 600px;
+    height: 400px;
+    left:33%;
+    background-image: url('img/ken-attack1.gif');
+    background-size: cover;
+    background-position: -100px;
+  }
+}
+
+@keyframes attack2-ken {
+  to {
+    background-image: url('img/ken-attack2.gif');
+    /* background-size: cover; */
+    /* background-position-y: -50px;
+    background-position-x: 50px; */
+    width: 200px;
+    height: 400px;
+  }
+}
+
+@keyframes attack1-ken-a {
+  0% {
+    /* background-size: cover; */
+    /* background-position-y: -50px;
+    background-position-x: 50px; */
+  }
+  50% {
+    right: 20%;
+  
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    right: 33%;
+    background-image: url('img/ken-attack1-a.gif');
+    z-index: 2;
+  }
+}
+
+@keyframes ken-tombe {
+  to {
+    background-image: url('img/ken-tombe-a.gif');
+    /* background-size: cover; */
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
+}
+
+@keyframes ryu-jump {
+  50% {
+    top : -1px;
+    /* margin-bottom: 5px; */
+    /* width: 150px; */
+    background-image: url('img/ryu-jump1.gif');
+  }
+  100% {
+    top : -1px;
+    background-image: url('img/ryu-jump1.gif');
+  } 
+}
+
+@keyframes ken-jump {
+  10% {
+    top : -5px;
+    margin-bottom: 5px;
+    /* width: 150px; */
+    background-image: url('img/ken-jump.gif');
+}
+}
+
+@keyframes ken-jump-a {
+  50% {
+    top : -5px;
+    /* margin-bottom: 5px; */
+    /* width: 150px; */
+    background-image: url('img/ken-jump-a.gif');
+}
+}
+
+
+@keyframes attack1-blanka {
+  to {
+    background-size: cover;
+    width: 600px;
+    left:33%;
+    background-position-y: -200px;
+    background-image: url('img/blanka-attack1.gif');
+  }
+}
+
+@keyframes blanka-jump {
+  10% {
+    top : -1px;
+    margin-bottom: 5px;
+    /* width: 150px; */
+    background-image: url('img/blanka-jump.gif');
+}
+}
+
+@keyframes attack1-zangile {
+  to {
+    background-size: cover;
+    width: 500px;
+    left:33%;
+    /* background-position-y: -200px; */
+    background-image: url('img/zangile-attack.gif');
+}
+}
+
+@keyframes zangile-jump {
+  10% {
+    top : -1px;
+    margin-bottom: 5px;
+    /* width: 150px; */
+    background-image: url('img/zangile-jump.gif');
+}
+}
+
+@keyframes attack1-dhalsim {
+  to {
+    background-size: cover;
+    width: 500px;
+    left:40%;
+    background-position-y: -50px;
+    background-image: url('img/dhalsim-attack1.gif');
+}
+}
+
+@keyframes dhalsim-jump {
+  10% {
+    top : -1px;
+    margin-bottom: 5px;
+    width: 200px;
+    background-image: url('img/dhalsim-jump.gif');
+    background-size: cover;
+}
+}
+
+@keyframes attack1-guile {
+  40% {
+    width: 300px;
+    left:45%;
+  }
+70% {
+  /* background-size: cover; */
+  width: 300px;
+  /* left:50%; */
+  /* background-position-y: -50px; */
+  background-image: url('img/guile-attack1.gif');
+}
+}
+
+@keyframes attack2-guile {
+  40% {
+    width: 300px;
+    left:45%;
+  }
+70% {
+  /* background-size: cover; */
+  width: 300px;
+  /* left:50%; */
+  /* background-position-y: -50px; */
+  background-image: url('img/guile-attack3.gif');
+}
+}
+
+@keyframes guile-jump {
+  10% {
+    top : -1px;
+    margin-bottom: 5px;
+    /* width: 200px; */
+    background-image: url('img/guile-jump.gif');
+    /* background-size: cover; */
+}
 }
