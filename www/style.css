@@ -175,33 +175,33 @@ ul {
 
 @keyframes attack1-ryu {
 
-  50% {
-    left:35%;
-    /* background-image: url('img/ryu-attack1.gif'); */
+  0% {
+    /* left:40%; */
+   left: 9%;
   }
   100% {
     width: 1000px;
-    height: 310px;
-    left:40%;
-    /* background-position-x: -100px; */
     background-image: url('img/ryu-attack1.gif');
     box-sizing: content-box;
+    height: 310px;
+    left:40%;
     z-index: 2;
   }
 
 }
 
 @keyframes attack2-ryu {
-  50% {
-    left:35%;
-    /* background-image: url('img/ryu-attack1.gif'); */
+  0% {
+    left:9%;
   }
   100% {
     width: 600px;
     height: 310px;
-    left:45%;
+    left:40%;
     /* background-position-x: -100px; */
     background-image: url('img/ryu-attack33.gif');
+    background-size: cover;
+    background-position-y: -90px;
     box-sizing: content-box;
     z-index: 2;
   }
@@ -273,33 +273,30 @@ ul {
 }
 
 @keyframes ryu-jump {
-  50% {
-    top : -1px;
-    /* margin-bottom: 5px; */
-    /* width: 150px; */
-    background-image: url('img/ryu-jump1.gif');
+  0% {
+  
   }
   100% {
-    top : -1px;
+    top : -5px;
     background-image: url('img/ryu-jump1.gif');
+    background-size: cover;
   } 
 }
 
 @keyframes ken-jump {
-  10% {
+  100% {
     top : -5px;
-    margin-bottom: 5px;
     /* width: 150px; */
     background-image: url('img/ken-jump.gif');
+    background-size: cover;
 }
 }
 
 @keyframes ken-jump-a {
-  50% {
+  100% {
     top : -5px;
-    /* margin-bottom: 5px; */
-    /* width: 150px; */
     background-image: url('img/ken-jump-a.gif');
+    background-size: cover;
 }
 }
 

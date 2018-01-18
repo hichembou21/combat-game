@@ -1,15 +1,15 @@
 "use strict";
 
 let fighters = [
-    ["ryu", 400], 
-    ["ken", 400], 
-    ["zangile", 400],
-    ["dhalsim", 400],
-    ["guile", 400],
-    ["blanka", 400],    
+    ["ryu", 400, [2.1, 2, 1]], 
+    ["ken", 400, [2.1,]], 
+    ["zangile", 400, [2.1,]],
+    ["dhalsim", 400, [2.1,]],
+    ["guile", 400, [2.1,]],
+    ["blanka", 400, [2.1,]],    
 ]; 
 let adversers = [
-    ["ken", 400], 
+    ["ken", 400, [3, 1]]
     
 ];
 
@@ -110,36 +110,29 @@ function display() {
 
 buttonAttackF.addEventListener('click', function (event) {
     event.preventDefault();
-    // let fighter = getPlayer();
-    // let adverser = getAdverser();
     animAttackF(1);
-    // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
         display();
         alert("you win");
         gameOver();
     }
-    // setTimeout(display(), 3000);
 });
 
 buttonSuperAttackF.addEventListener('click', function (event) {
     event.preventDefault();
-    // let fighter = getPlayer();
-    // let adverser = getAdverser();
     animAttackF(2);
-    // savePlayers(fighter, adverser);
     if (adverser.life <= 0) {
         display();
         alert("you win");
         gameOver();
     }
-    // setTimeout(display(), 3000);
 });
 
 buttonJumpAttackF.addEventListener('click', function () {
 
     let imgF = document.querySelector('#img-f');
-    imgF.style.animationDuration = '1.2s';
+    imgF.style.animationDuration = `${fighter.timeAttack[fighter.timeAttack.length - 1]}s`;    
+    // imgF.style.animationDuration = '1s';
     imgF.style.animationName = `${fighter.name}-jump`;
     imgF.addEventListener('animationend', function () {
         imgF.style.animationName = 'none';
@@ -149,23 +142,17 @@ buttonJumpAttackF.addEventListener('click', function () {
 
 buttonGetPowerF.addEventListener('click', function (event) {
     event.preventDefault();
-    // let fighter = getPlayer();
-    // let adverser = getAdverser();
     if (fighter.power < 15) {
         fighter.getPower(); 
         console.log('+energy');  
     } else {
         alert('you have enough energy');
     }
-    // savePlayers(fighter, adverser);
     display();
 });
 
 buttonAttackA.addEventListener('click', function name(params) {
-    // let fighter = getPlayer();
-    // let adverser = getAdverser();
     animAttackA(1);
-    // savePlayers(fighter, adverser);
     if (fighter.life <= 0) {
         alert("you lost");
         console.log("you win");
@@ -176,7 +163,6 @@ buttonAttackA.addEventListener('click', function name(params) {
 buttonSuperAttackA.addEventListener('click', function () {
     
     animAttackA(2);
-    // savePlayers(fighter, adverser);
     if (fighter.life <= 0) {
         alert("you lost");
         console.log("you win");
@@ -187,7 +173,9 @@ buttonSuperAttackA.addEventListener('click', function () {
 buttonJumpAttackA.addEventListener('click', function () {
     
         let imgA = document.querySelector('#img-a');
-        imgA.style.animationDuration = '1s';
+        imgA.style.animationDuration = `${adverser.timeAttack[adverser.timeAttack.length - 1]}s`;    
+    
+        // imgA.style.animationDuration = '1s';
         imgA.style.animationName = `${adverser.name}-jump-a`;
         imgA.addEventListener('animationend', function () {
             imgA.style.animationName = 'none';
@@ -200,12 +188,12 @@ buttonJumpAttackA.addEventListener('click', function () {
 function animAttackF(i) {
     let imgF = document.querySelector('#img-f');
     let imgA = document.querySelector('#img-a');
-    console.log(imgF);
-    // imgF.style.backgroundSize = 'cover';
     onAttack = true;
-    imgF.style.animationDuration = '3.5s';
-    imgA.style.animationDuration = '1.5s';    
-    imgA.style.animationDelay = `2.2s`;
+    imgF.style.animationDuration = `${fighter.timeAttack[i-1]}s`;
+    // imgF.style.animationDuration = `2s`;
+    
+    imgA.style.animationDuration = '1s';    
+    imgA.style.animationDelay = `1.5s`;
     imgF.style.animationName = `attack${i}-${fighter.name}`; 
     imgA.style.animationName = `${adverser.name}-tombe`;
     imgF.addEventListener('animationend', function () {
@@ -222,21 +210,17 @@ function animAttackF(i) {
         });
     imgA.addEventListener('animationend', function () {
         imgA.style.animationName = 'none';
+        imgA.style.animationDelay = '0s';
     });
-        
-    console.log(imgF.style.animationName);
-    // imgF.style.animationName = 'none';
 }
 
 function animAttackA(i) {
     let imgF = document.querySelector('#img-f');
     let imgA = document.querySelector('#img-a');
-    console.log(imgF);
-    // imgF.style.backgroundSize = 'cover';
     onAttackA = true;
     imgA.style.animationName = `attack${i}-${adverser.name}-a`; 
-    imgA.style.animationDuration = '2.8s';
-    imgF.style.animationDelay = `2s`;
+    imgA.style.animationDuration = `${adverser.timeAttack[i-1]}s`;
+    imgF.style.animationDelay = `1.5s`;
     imgF.style.animationName = `${fighter.name}-tombe`;
     imgA.addEventListener('animationend', function () {
             if (onAttackA) {
@@ -257,27 +241,11 @@ function animAttackA(i) {
 
 
 function selectFighter(name, id) {
-    return new Fighter(id, name, fighters[id][1]);
-        
+    return new Fighter(id, name, fighters[id][1], fighters[id][2]);    
 }
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
-}
-
-function savePlayers(player1, player2) {
-    let player1Json = JSON.stringify(player1);     
-    localStorage.setItem("fighter", player1Json); 
-    let player2Json = JSON.stringify(player2);     
-    localStorage.setItem("adverser", player2Json); 
-}
-
-function getPlayer() {
-    return JSON.parse(localStorage.getItem("fighter"));
-}
-
-function getAdverser() {
-    return JSON.parse(localStorage.getItem("adverser"));
 }
 
 function gameOver() {
