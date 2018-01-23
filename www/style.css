@@ -27,9 +27,9 @@ body {
 
 .choose-f {
   text-align: center;
-  font-family: 'Diplomata SC', cursive;
-  font-size: 40px;
-  color: rgb(172, 49, 49);
+  font-family: 'Faster One', cursive;
+  font-size: 50px;
+  color: rgb(173, 185, 59);
 }
 
 .pres-n {
@@ -121,7 +121,9 @@ ul {
 
 .name {
   justify-content: space-between;
-  font-family: 'Russo One', sans-serif;
+  font-family: 'Stalinist One', cursive;
+  font-size: 13px;
+  font-weight: 40px;
 }
 
 #barre-life-f, #barre-life-a {
@@ -195,6 +197,22 @@ ul {
   width: 30px;
 }
 
+/* .game-over {
+  width: 50%;
+  top: 30%;
+  left: 30%;
+  height: 300px;
+  background-color: #b9b5a2;
+  color: black;
+  display : none;
+  position : absolute;
+  top: 30%;
+  left: 50%;
+  z-index: 3;
+  border: 1px solid #080c38;
+  border-radius: 3px;
+} */
+
 
 @keyframes attack1-ryu {
 
@@ -219,13 +237,13 @@ ul {
   }
   100% {
     width: 600px;
-    height: 310px;
-    left:40%;
+    height: 400px;
+    left:37%;
     /* background-position-x: -100px; */
     background-image: url('img/ryu/ryu-attack33.gif');
-    background-size: cover;
-    background-position-y: -90px;
-    box-sizing: content-box;
+    /* background-size: cover; */
+    /* background-position-y: -90px; */
+    /* box-sizing: content-box; */
     z-index: 2;
   }
 }
@@ -260,31 +278,41 @@ ul {
 }
 
 @keyframes attack2-ken {
-  to {
-    background-image: url('img/ken/ken-attack2.gif');
-    /* background-size: cover; */
-    /* background-position-y: -50px;
-    background-position-x: 50px; */
-    width: 200px;
-    height: 400px;
+  0% {
+    left:9%;
+  }
+  100% {
+    width: 500px;
+    left:40%;
+    background-image: url('img/ken/ken-attack1.gif');
+    /* background-position-y: -50px; */
+    height: 500px;
+    z-index: 2;
   }
 }
 
 @keyframes attack1-ken-a {
   0% {
-    /* background-size: cover; */
-    /* background-position-y: -50px;
-    background-position-x: 50px; */
+    right: 9%;
   }
-  50% {
-    right: 20%;
-  
+  100% {
+    width: 500px;
+    height: 300px;
+    right: 45%;
+    background-image: url('img/ken/ken-attack1-a.gif');
+    z-index: 2;
+  }
+}
+
+@keyframes attack2-ken-a {
+  0% {
+    right: 9%;
   }
   100% {
     width: 300px;
     height: 300px;
-    right: 33%;
-    background-image: url('img/ken/ken-attack1-a.gif');
+    right: 45%;
+    background-image: url('img/ken/ken-attack22.gif');
     z-index: 2;
   }
 }
@@ -300,10 +328,13 @@ ul {
   }
 }
 
-@keyframes ryu-jump {
-  0% {
-  
+@keyframes ken-shocked {
+  to {
+    background-image: url('img/ken/ken-shocked.gif');
   }
+}
+
+@keyframes ryu-jump {
   100% {
     top : -5px;
     background-image: url('img/ryu/ryu-jump1.gif');
@@ -313,116 +344,161 @@ ul {
 
 @keyframes ken-jump {
   100% {
-    top : -5px;
-    /* width: 150px; */
-    background-image: url('img/ken/ken-jump.gif');
-    background-size: cover;
+    top : -1px;
+    background-image: url('img/ken/ken-jump2.gif');
 }
 }
 
 @keyframes ken-jump-a {
   100% {
-    top : -5px;
+    top : -1px;
     background-image: url('img/ken/ken-jump-a.gif');
-    background-size: cover;
 }
 }
 
 
 @keyframes attack1-blanka {
-  to {
+  0% {
+    left:9%;
+  }
+  100% {
     background-size: cover;
-    width: 600px;
-    left:33%;
-    background-position-y: -200px;
+    width: 500px;
+    height: 300px;
+    left:38%;
+    /* background-position-y: -200px; */
     background-image: url('img/blanka/blanka-attack1.gif');
+    z-index: 2;
+  }
+}
+
+@keyframes attack2-blanka {
+  0% {
+    left:9%;
+  }
+  100% {
+    /* background-size: cover; */
+    width: 500px;
+    height: 300px;
+    left: 55%;
+    /* background-position-y: -200px; */
+    background-image: url('img/blanka/blanka-attack2.gif');
+    z-index: 2;
   }
 }
 
 @keyframes blanka-jump {
-  10% {
+  to {
     top : -1px;
-    margin-bottom: 5px;
     /* width: 150px; */
     background-image: url('img/blanka/blanka-jump.gif');
 }
 }
 
 @keyframes attack1-zangile {
+  0% {
+    left:9%;
+  }
   100% {
     /* background-size: cover; */
     width: 500px;
-    left:52%;
+    left:40%;
     /* background-position-y: -200px; */
     background-image: url('img/zangile/zangile-attack.gif');
     z-index: 2;
 }
 }
 
+@keyframes attack2-zangile {
+  0% {
+    left:9%;
+  }
+  100% {
+    /* background-size: cover; */
+    width: 500px;
+    height: 400px;
+    left:45%;
+    /* background-position-y: -200px; */
+    background-image: url('img/zangile/zangile-attack3.gif');
+    z-index: 2;
+}
+}
+
 @keyframes zangile-jump {
-  10% {
+  to {
     top : -1px;
-    margin-bottom: 5px;
     /* width: 150px; */
     background-image: url('img/zangile/zangile-jump.gif');
 }
 }
 
 @keyframes attack1-dhalsim {
-  to {
-    background-size: cover;
+  0% {
+    left:9%;
+  }
+  100% {
+    /* background-size: cover; */
     width: 500px;
     left:40%;
-    background-position-y: -50px;
+    /* background-position-y: -50px; */
     background-image: url('img/dhalsim/dhalsim-attack1.gif');
+    z-index: 2;
+}
+}
+
+@keyframes attack2-dhalsim {
+  0% {
+    left:9%;
+  }
+  100% {
+    /* background-size: cover; */
+    width: 400px;
+    left:50%;
+    /* background-position-y: -50px; */
+    background-image: url('img/dhalsim/dhalsim-attack2.gif');
+    z-index: 2;
 }
 }
 
 @keyframes dhalsim-jump {
-  10% {
+  to {
     top : -1px;
-    margin-bottom: 5px;
-    width: 200px;
     background-image: url('img/dhalsim/dhalsim-jump.gif');
-    background-size: cover;
 }
 }
 
 @keyframes attack1-guile {
-  40% {
-    width: 300px;
-    left:45%;
+  0% {
+    left:9%;
   }
-70% {
+100% {
   /* background-size: cover; */
-  width: 300px;
-  /* left:50%; */
+  width: 400px;
+  left:50%;
   /* background-position-y: -50px; */
   background-image: url('img/guile/guile-attack1.gif');
+  z-index: 2;
 }
 }
 
 @keyframes attack2-guile {
-  40% {
-    width: 300px;
-    left:45%;
+  0% {
+    left:9%;
   }
-70% {
+100% {
   /* background-size: cover; */
-  width: 300px;
-  /* left:50%; */
+  width: 400px;
+  left:50%;
   /* background-position-y: -50px; */
-  background-image: url('img/guile/guile-attack3.gif');
+  background-image: url('img/guile/guile-attack2.gif');
+  height: 500px;
 }
 }
 
 @keyframes guile-jump {
-  10% {
+  to {
     top : -1px;
-    margin-bottom: 5px;
-    /* width: 200px; */
     background-image: url('img/guile/guile-jump.gif');
-    /* background-size: cover; */
 }
 }
 
@@ -432,16 +508,40 @@ ul {
     background-color: #d4bf98;
   }
   100% {
-    width: 300px;
+    width: 500px;
     right: 45%;
     background-image: url('img/chanli/chanli-attack1-a.gif');
+    /* height: 450px; */
     background-size: cover;
+    z-index: 2;
+  }
+}
+
+@keyframes attack2-chanli-a {
+  0% {
+    right: 9%;
+    background-color: #d4bf98;
+  }
+  100% {
+    width: 400px;
+    right: 45%;
+    background-image: url('img/chanli/chanli-attack2-a.gif');
+    height: 500px;
+    /* background-size: cover; */
+    z-index: 2;
   }
 }
 
 @keyframes chanli-tombe {
   to {
     background-image: url('img/chanli/chanli-tombe-a.gif');
+    
+  }
+}
+
+@keyframes chanli-shocked {
+  to {
+    background-image: url('img/chanli/chanli-shocked.gif');
     /* background-size: cover; */
     /* background-position-y: -50px; */
     /* background-position-x: 50px; */
@@ -455,6 +555,59 @@ ul {
     top : -5px;
     background-image: url('img/chanli/chanli-jump.gif');
     background-size: cover;
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
+}
+
+@keyframes attack1-bison-a {
+  0% {
+    right: 9%;
+    background-color: #d4bf98;
+  }
+  100% {
+    width: 500px;
+    right: 45%;
+    background-image: url('img/bison/bison-attack1-a.gif');
+    height: 450px;
+    /* back ize: cover; */
+    z-index: 2;
+  }
+}
+
+@keyframes attack2-bison-a {
+  0% {
+    right: 9%;
+    background-color: #d4bf98;
+  }
+  100% {
+    width: 500px;
+    right: 30%;
+    background-image: url('img/bison/bison-attack2-a.gif');
+    height: 400px;
+    /* background-size: cover; */
+    z-index: 2;
+  }
+}
+
+@keyframes bison-jump-a {
+  to {
+    top : -5px;
+    background-image: url('img/bison/bison-jump.gif');
+    background-size: cover;
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
+}
+
+@keyframes bison-tombe {
+  to {
+    background-image: url('img/bison/bison-tombe-a.gif');
+    /* background-size: cover; */
     /* background-position-y: -50px; */
     /* background-position-x: 50px; */
     /* width: 500px;

@@ -49,44 +49,32 @@ class GameView {
     }
 
     animAttackF(fighter, adverser, i) {
-        let _this = this;
         let imgF = document.querySelector('#img-f');
         let imgA = document.querySelector('#img-a');
-        // imgF.style.animationDuration = `${fighter.timeAttack[i-1]}s`;
-        imgF.style.animationDuration = `2.5s`;
+        imgF.style.animationDuration = `${fighter.timeAttack[i-1]}s`;
+        // imgF.style.animationDuration = `2.5s`;
         imgA.style.animationDuration = '1s';    
         imgA.style.animationDelay = `1.5s`;
         imgF.style.animationName = `attack${i}-${fighter.name}`;
         // console.log(imgF.style.animationName); 
-        imgA.style.animationName = `${adverser.name}-tombe`;
+        if (fighter.name === "blanka" && i===2) {
+            imgA.style.animationName = `${adverser.name}-shocked`;
+        } else {
+            imgA.style.animationName = `${adverser.name}-tombe`;
+        }
+        
     }
 
-    animAttackA(fighter, adverser, i, onAttackA) {
-        let _this = this;
+    animAttackA(fighter, adverser, i) {
         let imgF = document.querySelector('#img-f');
         let imgA = document.querySelector('#img-a');
-        onAttackA = true;
         imgA.style.animationName = `attack${i}-${adverser.name}-a`; 
         imgA.style.animationDuration = `${adverser.timeAttack[i-1]}s`;
         imgF.style.animationDuration =`1s`;
         imgF.style.animationDelay = `1.5s`;
-        imgF.style.animationName = `${fighter.name}-tombe`;
-        imgA.addEventListener('animationend', function () {
-                if (onAttackA) {
-                    if (i === 1) {
-                        adverser.simpleAttack(fighter);
-                    } else {
-                        adverser.superAttack(fighter);
-                    }
-                    _this.display(fighter, adverser)
-                    onAttackA = false;
-                }
-                imgA.style.animationName = 'none';
-            });
-        imgF.addEventListener('animationend', function () {
-            imgF.style.animationName = 'none';
-            imgF.style.animationDelay = '0s';            
-        });
+        if (!fighter.onBlock) {
+            imgF.style.animationName = `${fighter.name}-tombe`;        
+        }
     }
 
     jumpF(fighter) {
