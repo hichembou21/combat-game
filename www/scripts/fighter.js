@@ -16,6 +16,9 @@ class Fighter {
         this.power-=5;
         adverser.power-=20;
         adverser.life-=5;
+        if (adverser.life < 0) {
+            adverser.life = 0
+        }
     }
 
     superAttack (adverser) {
@@ -23,6 +26,9 @@ class Fighter {
         this.power-=40;
         adverser.power-= 50;
         adverser.life-= 20;
+        if (adverser.life < 0) {
+            adverser.life = 0
+        }
     }
 
     getPower() {

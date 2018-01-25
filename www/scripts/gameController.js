@@ -15,8 +15,8 @@ class GameController {
             ["blanka", 400, [2.5, 3, 1]],    
         ]; 
         let adversers = [
-            ["ken", 400, [3, 2, 1]],
-            ["chanli", 400, [2, 3, 1]],
+            ["ken", 400, [3, 4, 1]],
+            ["chanli", 400, [2, 4, 1]],
             // ["bison", 400, [3, 3.5, 1]]
                      
         ];
@@ -39,25 +39,40 @@ class GameController {
         let choice = document.querySelectorAll('div input[type=radio]');
         let divGameOver = document.querySelector('.game-over');
         let finalMessage = document.querySelector('.final-message');
-        let music = document.querySelector('#music1');
+        let music1 = document.querySelector('#music1');
+        let music2 = document.querySelector('#music2');
+        let soundCheck = document.querySelector('#sound-check');
+        let soundIcon = document.querySelector('#sound-icon');
         let onAttack = false;
 
-        music.src = '/audio/player-select.mp3';
-        music.currentTime = 2;
-        music.play();
+        soundCheck.addEventListener('change', function () {
+            if (this.checked) {
+                music1.src = '/audio/player-select.mp3';
+                music1.currentTime = 2;
+                music1.play();
+                soundIcon.src = "img/sound-icon.png";        
+            } else {
+                music1.pause();
+                soundIcon.src = "img/sound-mute.png";
+            }
+        });
+
+        music1.src = '/audio/player-select.mp3';
+        music1.currentTime = 2;
+        music1.play();
 
 
-        music.addEventListener('ended', function (event) {
+        music1.addEventListener('ended', function (event) {
             if (!(divStart.style.display === 'none')) {
                 this.currentTime = 2;
-                music.play();
+                music1.play();
             } 
         });
 
         // evenement Click sur button Start
         buttonStart.addEventListener('click', function (event) {
             event.preventDefault();
-            music.pause();
+            music1.pause();
             // music.currentTime = 0;
             let id = 0; 
             choice.forEach(item => {
@@ -88,87 +103,79 @@ class GameController {
             _this.fighter.onAttack = true;
             _this.view.animAttackF(_this.fighter, _this.adverser, 1);
             imgF.addEventListener('animationstart', function (event) {
-                    if ( _this.fighter.onAttack === true) {
-                        music.src = '/audio/hadouken.mp3';
-                        music.currentTime = 0;
-                        music.play();
-                    }
-                   
+                    if ( _this.fighter.onAttack) {
+                        music1.src = `/audio/${_this.fighter.name}-attack1.mp3`;
+                        music1.currentTime = 0;
+                        music1.play();
+                    } 
             });
 
             imgF.addEventListener('animationend', function () {
-                    if (_this.fighter.onAttack && _this.adverser.life > 0 ) {
+                    if (_this.fighter.onAttack) {
                         _this.fighter.simpleAttack(_this.adverser);
     
                         _this.view.display(_this.fighter, _this.adverser)
                         _this.fighter.onAttack = false;
                         imgF.style.animationName = 'none';
                     }
-                });
+            });
 
             imgA.addEventListener('animationstart', function () {
-                music.src = '/audio/tape.mp3';
-                music.currentTime = 0;
-                music.play();
+                if (_this.fighter.onAttack) {
+                    music2.src = '/audio/tape.mp3';
+                    music2.currentTime = 0;
+                    music2.play(); 
+                }
             });
 
             imgA.addEventListener('animationend', function () {
-                imgA.style.animationName = 'none';
-                imgA.style.animationDelay = '0s';
+                    imgA.style.animationName = 'none';
+                    imgA.style.animationDelay = '0s'; 
             });
-            if (_this.adverser.life <= 0) {
-                // _this.view.display(_this.fighter, _this.adverser);
-                
-                imgA.style.backgroundImage = `url(img/${_this.adverser.name}/${_this.adverser.name}-tombe-a.gif)`;
-                if (!_this.adverser.name === 'chanli') {
-                    music.src = '/audio/dieguy.wav';
-                    music.currentTime = 0;
-                } else {
-                    music.src = '/audio/diegirl.wav';
-                    music.currentTime = 0;
-                }
-                music.play();
-                gameOver("you win");
-            }
         });
 
         buttonSuperAttackF.addEventListener('click', function (event) {
             event.preventDefault();
             onAttack = true;
             _this.view.animAttackF(_this.fighter, _this.adverser, 2);
-            imgF.addEventListener('animationend', function () {
-                if (onAttack && _this.adverser.life > 0) {
-                    _this.fighter.superAttack(_this.adverser);
 
+            imgF.addEventListener('animationstart', function (event) {
+                if (onAttack) {
+                    music1.src = `/audio/${_this.fighter.name}-attack2.mp3`;
+                    music1.currentTime = 0;
+                    music1.play();
+                }
+            });
+
+            imgF.addEventListener('animationend', function () {
+                if (onAttack) {
+                    _this.fighter.superAttack(_this.adverser);
                     _this.view.display(_this.fighter, _this.adverser)
                     onAttack = false;
                     imgF.style.animationName = 'none';
+                    imgF.style.animationDelay = '0s';
                 }
             });
-        imgA.addEventListener('animationend', function () {
-            imgA.style.animationName = 'none';
-            imgA.style.animationDelay = '0s';
-        });
-            if (_this.adverser.life <= 0) {
-                // _this.view.display(_this.fighter, _this.adverser);
-                imgA.style.backgroundImage = `url(img/${_this.adverser.name}/${_this.adverser.name}-tombe-a.gif)`;
-                if (!_this.adverser.name === 'chanli') {
-                    music.src = '/audio/dieguy.wav';
-                    music.currentTime = 0;
-                } else {
-                    music.src = '/audio/diegirl.wav';
-                    music.currentTime = 0;
+
+            imgA.addEventListener('animationstart', function () {
+                if (onAttack) {
+                    music2.src = '/audio/tape.mp3';
+                    music2.currentTime = 0;
+                    music2.play(); 
                 }
-                music.play();
-                gameOver("you win");
-            }
+            });
+
+            imgA.addEventListener('animationend', function () {
+                    imgA.style.animationName = 'none';
+                    imgA.style.animationDelay = '0s';
+            });
         });
 
         buttonJumpF.addEventListener('click', function () {
-            
             _this.view.jumpF(_this.fighter, '#img-f');
             imgF.addEventListener('animationend', function () {
                 imgF.style.animationName = 'none';
+                imgF.style.animationDelay = '0s';
             });   
         });
 
@@ -188,22 +195,23 @@ class GameController {
             _this.view.animAttackA(_this.fighter, _this.adverser, 1);            
             imgA.addEventListener('animationend', function () {
                 if (_this.adverser.onAttack && !_this.fighter.onBlock) {
-                    if (_this.fighter.life > 0) {
                         _this.adverser.simpleAttack(_this.fighter);
                         _this.view.display(_this.fighter, _this.adverser)
                         _this.adverser.onAttack = false;
-                        imgA.style.animationName = 'none';
-                    }
-                       
+                        imgA.style.animationName = 'none';      
+                }
+            });
+            imgF.addEventListener('animationstart', function () {
+                if (_this.adverser.onAttack) {
+                    music1.src = '/audio/tape.mp3';
+                    music1.currentTime = 0;
+                    music1.play(); 
                 }
             });
             imgF.addEventListener('animationend', function () {
                 imgF.style.animationName = 'none';
                 imgF.style.animationDelay = '0s';            
             });
-            if (_this.fighter.life <= 0) {
-                gameOver("you lost");
-            }
         });
 
         document.body.addEventListener("keydown", function (event) {
@@ -225,26 +233,27 @@ class GameController {
 
         buttonSuperAttackA.addEventListener('click', function (event) {
             event.preventDefault();
-            _this.adverser.onAttack = true;
+            onAttack = true;
             _this.view.animAttackA(_this.fighter, _this.adverser, 2);
             imgA.addEventListener('animationend', function () {
-                if (_this.adverser.onAttack && !_this.fighter.onBlock) {
-                    if (_this.fighter.life > 0) {
+                if (onAttack && !_this.fighter.onBlock) {
                         _this.adverser.superAttack(_this.fighter);
                         _this.view.display(_this.fighter, _this.adverser)
-                        _this.adverser.onAttack = false;
-                        imgA.style.animationName = 'none';
-                    }
-                       
+                        onAttack = false;
+                        imgA.style.animationName = 'none';                       
+                }
+            });
+            imgF.addEventListener('animationstart', function () {
+                if (onAttack) {
+                    music1.src = '/audio/tape.mp3';
+                    music1.currentTime = 0;
+                    music1.play(); 
                 }
             });
             imgF.addEventListener('animationend', function () {
                 imgF.style.animationName = 'none';
                 imgF.style.animationDelay = '0s';            
             });
-            if (_this.fighter.life <= 0) {
-                gameOver("you lost");
-            }
         });
 
         buttonJumpA.addEventListener('click', function () {
@@ -252,6 +261,7 @@ class GameController {
             _this.view.jumpA(_this.adverser);
             imgA.addEventListener('animationend', function () {
                 imgA.style.animationName = 'none';
+                imgA.style.animationDelay = '0s';
             });   
         });
         
@@ -262,30 +272,6 @@ class GameController {
         
         function getRandomInt(max) {
             return Math.floor(Math.random() * Math.floor(max));
-        }
-        
-        function gameOver(msg) {
-            // _this.view.display(_this.fighter, _this.adverser);
-            imgA.style.backgroundImage = `url(img/${_this.adverser.name}/${_this.adverser.name}-tombe-a.gif)`;
-            alert(msg);
-            divStart.style.display = 'block';
-            buttonStart.style.display = 'block';
-            divCombat.style.display = 'none';
-            logo.style.height = "250px";
-            music.src = '/audio/player-select.mp3';
-            music.currentTime = 2;
-            music.play();
-        }
-        // let restartBtn = document.querySelector('.restart');
-        // restartBtn.addEventListener('click', function (event) {
-        //     buttonStart.style.display = 'block';
-        //     divStart.style.display = 'block';
-        //     divGameOver.style.display = 'none';
-        //     divCombat.style.display = 'none';
-        //     logo.style.height = "250px";
-        //     music.src = '/audio/player-select.mp3';
-        //     music.currentTime = 2;
-        //     music.play();
-        // });
+        }       
     }
 }

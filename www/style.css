@@ -395,6 +395,18 @@ ul {
 }
 }
 
+@keyframes blanka-tombe {
+  to {
+    /* width: 250px; */
+    background-image: url('img/blanka/blanka-tombe.gif');
+    /* background-size: cover; */
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
+}
+
 @keyframes attack1-zangile {
   0% {
     left:9%;
@@ -430,6 +442,18 @@ ul {
     /* width: 150px; */
     background-image: url('img/zangile/zangile-jump.gif');
 }
+}
+
+@keyframes zangile-tombe {
+  to {
+    /* width: 250px; */
+    background-image: url('img/zangile/zangile-tombe.gif');
+    /* background-size: cover; */
+    /* background-position-y: -50px; */
+    /* background-position-x: 50px; */
+    /* width: 500px;
+    height: 300px; */
+  }
 }
 
 @keyframes attack1-dhalsim {
