@@ -61,7 +61,7 @@ class GameView {
             music1.src = '/audio/youwin.wav';
             music1.currentTime = 0;
             music1.play();
-            this.gameOver(adverser, 1); 
+            this.gameOver(fighter, adverser, 1); 
         } 
         if (fighter.life <= 0) {
             music1.src = '/audio/dieguy.wav';
@@ -70,7 +70,7 @@ class GameView {
             music2.src = '/audio/youlose.wav';
             music2.currentTime = 0;
             music2.play();
-            this.gameOver(fighter, 0);
+            this.gameOver(fighter, adverser, 0);
         }  
     }
 
@@ -121,26 +121,32 @@ class GameView {
         music2.play();
     }
 
-    gameOver(fighter, msg) {
+    gameOver(fighter, adverser, msg) {
         let divStart = document.querySelector('.players-choice');
         let logo = document.querySelector('.header');
         let divCombat = document.querySelector('.combat');
         let buttonStart = document.querySelector('div button[type=submit]');        
-        let music = document.querySelector('#music1');
+        let divGameOver = document.querySelector('.game-over');
+        let finalMsg = document.querySelector('.final-msg');
+        let finalMsg1 = document.querySelector('.final-msg1');
+        
+        
         if (msg === 1) {
-            this.imgA.style.backgroundImage = `url("img/${fighter.name}/${fighter.name}-ko-a.gif")`;
-            alert("you win");
+            this.imgA.style.backgroundImage = `url("img/${adverser.name}/${adverser.name}-ko-a.gif")`;
+            this.imgF.style.backgroundImage = `url("img/${fighter.name}/${fighter.name}-win.gif")`;
+            // alert("you win");
+            finalMsg.textContent = "You win";
+            finalMsg1.textContent = `Perfect ${fighter.name} good job`;
+            
         } 
         if (msg === 0) {
             this.imgF.style.backgroundImage = `url("img/${fighter.name}/${fighter.name}-ko.gif")`;
-            alert("you lose");
+            this.imgA.style.backgroundImage = `url("img/${adverser.name}/${adverser.name}-win-a.gif")`;
+            // alert("you lose");
+            finalMsg.textContent = "You lose";
+            finalMsg1.textContent = `Perfect ${adverser.name}`;
         }
-        divStart.style.display = 'block';
-        buttonStart.style.display = 'block';
-        divCombat.style.display = 'none';
-        logo.style.height = "250px";
-        music.src = '/audio/player-select.mp3';
-        music.currentTime = 2;
-        music.play();
+        divGameOver.style.display = 'block';
+
     }
 }

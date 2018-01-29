@@ -7,7 +7,7 @@ class GameController {
         this.view = new GameView();
         let _this = this;
         let fighters = [
-            ["ryu", 400, [2, 2, 1]], 
+            ["ryu", 400, [2, 3, 1]], 
             ["ken", 400, [2.5, 2, 1.3]], 
             ["zangile", 400, [2, 4, 1]],
             ["dhalsim", 400, [2.1, 3, 1.5]],
@@ -15,10 +15,8 @@ class GameController {
             ["blanka", 400, [2.5, 3, 1]],    
         ]; 
         let adversers = [
-            ["ken", 400, [3, 4, 1]],
-            ["chanli", 400, [2, 4, 1]],
-            // ["bison", 400, [3, 3.5, 1]]
-                     
+            ["ken", 400, [3, 3, 1]],
+            ["chanli", 400, [1, 4, 1]]
         ];
 
         // récupération des éléments Buttons 
@@ -37,13 +35,14 @@ class GameController {
         let logo = document.querySelector('.header');
         let divCombat = document.querySelector('.combat');
         let choice = document.querySelectorAll('div input[type=radio]');
-        let divGameOver = document.querySelector('.game-over');
+        let divGameOver = document.querySelector('.game-over');        
+        let btnGameOver = document.querySelector('#restart');
         let finalMessage = document.querySelector('.final-message');
         let music1 = document.querySelector('#music1');
         let music2 = document.querySelector('#music2');
         let soundCheck = document.querySelector('#sound-check');
         let soundIcon = document.querySelector('#sound-icon');
-        let onAttack = false;
+        let onAttack, onAttackA = false;
 
         soundCheck.addEventListener('change', function () {
             if (this.checked) {
@@ -193,6 +192,15 @@ class GameController {
             event.preventDefault();
             _this.adverser.onAttack = true;
             _this.view.animAttackA(_this.fighter, _this.adverser, 1);            
+            
+            imgA.addEventListener('animationstart', function (event) {
+                if ( _this.adverser.onAttack) {
+                    music2.src = `./audio/${_this.adverser.name}-attack1.mp3`;
+                    music2.currentTime = 0;
+                    music2.play();
+                } 
+            });
+
             imgA.addEventListener('animationend', function () {
                 if (_this.adverser.onAttack && !_this.fighter.onBlock) {
                         _this.adverser.simpleAttack(_this.fighter);
@@ -233,18 +241,27 @@ class GameController {
 
         buttonSuperAttackA.addEventListener('click', function (event) {
             event.preventDefault();
-            onAttack = true;
+            onAttackA = true;
             _this.view.animAttackA(_this.fighter, _this.adverser, 2);
+            
+            imgA.addEventListener('animationstart', function (event) {
+                if (onAttackA) {
+                    music2.src = `./audio/${_this.adverser.name}-attack2.mp3`;
+                    music2.currentTime = 0;
+                    music2.play();
+                } 
+            });
+
             imgA.addEventListener('animationend', function () {
-                if (onAttack && !_this.fighter.onBlock) {
+                if (onAttackA && !_this.fighter.onBlock) {
                         _this.adverser.superAttack(_this.fighter);
                         _this.view.display(_this.fighter, _this.adverser)
-                        onAttack = false;
+                        onAttackA = false;
                         imgA.style.animationName = 'none';                       
                 }
             });
             imgF.addEventListener('animationstart', function () {
-                if (onAttack) {
+                if (onAttackA) {
                     music1.src = '/audio/tape.mp3';
                     music1.currentTime = 0;
                     music1.play(); 
@@ -263,6 +280,28 @@ class GameController {
                 imgA.style.animationName = 'none';
                 imgA.style.animationDelay = '0s';
             });   
+        });
+
+        buttonGetPowerA.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (_this.adverser.power < 15) {
+                _this.adverser.getPower();   
+            } else {
+                alert('you have enough energy');
+            }
+            _this.view.display(_this.fighter, _this.adverser);
+        });
+
+        btnGameOver.addEventListener('click', function (event) {
+           event.preventDefault();
+           divGameOver.style.display = 'none';
+           divStart.style.display = 'block';
+           buttonStart.style.display = 'block';
+           divCombat.style.display = 'none';
+           logo.style.height = "250px";
+           music1.src = '/audio/player-select.mp3';
+           music1.currentTime = 2;
+           music1.play();
         });
         
 
