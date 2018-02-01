@@ -8,7 +8,7 @@ class GameController {
         let _this = this;
         let fighters = [
             ["ryu", 400, [2, 3, 1]], 
-            ["ken", 400, [2.5, 2, 1.3]], 
+            ["ken", 400, [2, 2, 1.3]], 
             ["zangile", 400, [2, 4, 1]],
             ["dhalsim", 400, [2.1, 3, 1.5]],
             ["guile", 400, [2, 2.5, 1]],
@@ -195,7 +195,7 @@ class GameController {
             
             imgA.addEventListener('animationstart', function (event) {
                 if ( _this.adverser.onAttack) {
-                    music2.src = `./audio/${_this.adverser.name}-attack1.mp3`;
+                    music2.src = `/audio/${_this.adverser.name}-attack1.mp3`;
                     music2.currentTime = 0;
                     music2.play();
                 } 
@@ -246,7 +246,7 @@ class GameController {
             
             imgA.addEventListener('animationstart', function (event) {
                 if (onAttackA) {
-                    music2.src = `./audio/${_this.adverser.name}-attack2.mp3`;
+                    music2.src = `/audio/${_this.adverser.name}-attack2.mp3`;
                     music2.currentTime = 0;
                     music2.play();
                 } 
