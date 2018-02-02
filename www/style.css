@@ -143,6 +143,7 @@ ul {
   height: 15px;
   background-color: rgb(236, 253, 0);
   border: 0.5px solid #ffffff;
+  margin-bottom: 2px;
 }
 
 #barre-power-a {
@@ -155,6 +156,7 @@ ul {
   background-color: rgb(65, 53, 143);
   border: 0.5px solid #ffffff;
   border-right: 0;
+  /* margin-bottom: 2px; */
 }
 
 .fighter {
@@ -216,9 +218,8 @@ ul {
     background-image: url('img/ryu/ryu-walk.gif');
   }
   100% {
-    width: 1000px;
+    width: 600px;
     background-image: url('img/ryu/ryu-attack1.gif');
-    box-sizing: content-box;
     height: 310px;
     left:42%;
     z-index: 2;
@@ -336,7 +337,7 @@ ul {
 @keyframes ken-jump {
   100% {
     top : -1px;
-    background-image: url('img/ken/ken-jump2.gif');
+    background-image: url('img/ken/ken-jump.gif');
 }
 }
 
